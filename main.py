@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("arrhythmia_csv.csv")
 
@@ -287,4 +289,33 @@ df.columns = [
 ]
 
 print(df)
+
+
+
+
+#3. Agregue una nueva columna llamada clase2, que contemple 2 opciones 
+# únicamente Normal o Arritmia
+def AgregarClase2(row):
+    if row['class'] == 1:
+        return 'Normal'
+    else:
+        return 'Arritmia'
+
+df['clase2'] = df.apply(AgregarClase2, axis=1)
+
+print(df.head(20))
+
+#4Construya un gráfico de cajas y bigotes para 
+# la variable edad, en relación con clase2.  
+# Realice otro gráfico de cajas y bigotes para otra
+#  variable numérica. Concluya al respecto
+
+sns.boxplot(x='age', y='clase2', data=df)
+plt.title("Grafico cajas y bigotes para la variable edad,en relación con clase2")
+plt.show()
+
+sns.boxplot(x='weight', y='clase2', data=df)
+plt.title("Gráfico de cajas y bigotes para otra variable numérica")
+plt.show()
+
 
