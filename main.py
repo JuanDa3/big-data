@@ -34,8 +34,14 @@ plt.title("Gráfico de cajas y bigotes para otra variable numérica")
 plt.show()
 
 
-# Eliminar columnas irrelevantes
+#5 5. Solucione los problemas referentes a calidad de datos presentes en al menos 6 
+# variables, al menos dos de ellas deben categóricas. Elimine columnas irrelevantes.
+#  Identifique los datos atípicos reemplace esos valores por la media de cada clase o 
+# la moda, según corresponda, este proceso debe realizarse en python.
+#  Debe agregar un párrafo, describiendo de manera ejecutiva, cuál fue el proceso seguido. 
 
+
+# Eliminar columnas irrelevantes
 df = df.drop(['J', 'chDI_Qwave', 'chDI_RPwaveExists', 'QRST','chAVR_SPwaveAmp'], axis=1)
 
 # Reemplazamos los valores atípicos por la media de cada clase o la moda
@@ -64,7 +70,6 @@ for col in num_columns:
         else:
             mean = df[df['class'] == cls][col].mean()
             df.loc[cls_outliers.index, col] = mean
-
 
 # Guardar el resultado en un nuevo archivo CSV
 data_limpio=df.to_csv('arrhythmia_clean.csv', index=False)
