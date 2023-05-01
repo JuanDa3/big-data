@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+# se importan las bibliotecas necesarias
+import matplotlib.pyplot as plt
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+
 
 df = pd.read_csv("arrhythmia_csv.csv")
-
-for col in df.columns:
-    print(col)
-
 
 #3. Agregue una nueva columna llamada clase2, que contemple 2 opciones 
 # únicamente Normal o Arritmia
@@ -34,15 +35,15 @@ plt.title("Gráfico de cajas y bigotes para otra variable numérica")
 plt.show()
 
 
-#5 5. Solucione los problemas referentes a calidad de datos presentes en al menos 6 
+# 5. Solucione los problemas referentes a calidad de datos presentes en al menos 6 
 # variables, al menos dos de ellas deben categóricas. Elimine columnas irrelevantes.
 #  Identifique los datos atípicos reemplace esos valores por la media de cada clase o 
 # la moda, según corresponda, este proceso debe realizarse en python.
 #  Debe agregar un párrafo, describiendo de manera ejecutiva, cuál fue el proceso seguido. 
 
-
 # Eliminar columnas irrelevantes
-df = df.drop(['J', 'chDI_Qwave', 'chDI_RPwaveExists', 'QRST','chAVR_SPwaveAmp'], axis=1)
+df = df.drop(['J', 'chDI_Qwave', 'chDI_RPwaveExists', 'QRST','chAVR_SPwaveAmp','chV1_SPwave'], axis=1)
+
 
 # Reemplazamos los valores atípicos por la media de cada clase o la moda
 num_columns = df.select_dtypes(include=['float', 'int']).columns
@@ -72,5 +73,7 @@ for col in num_columns:
             df.loc[cls_outliers.index, col] = mean
 
 # Guardar el resultado en un nuevo archivo CSV
-data_limpio=df.to_csv('arrhythmia_clean.csv', index=False)
+df.to_csv('arrhythmia_clean.csv', index=False)
+
+print('Dataset limpio con datos removidos \n',pd.read_csv('arrhythmia_clean.csv'))
 
